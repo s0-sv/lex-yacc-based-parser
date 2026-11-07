@@ -1,0 +1,40 @@
+#include <stdio.h>
+int main(void) {
+    int a = -17, b = 5;
+    unsigned u = 4000000000u;
+    long l = 1L << 40;
+    char c = (char)200;
+    unsigned char uc = (unsigned char)300;
+    short s = (short)70000;
+    printf("%d %d %d %d %d\n", a + b, a - b, a * b, a / b, a % b);
+    printf("%u %u %u\n", u + 500000000u, u * 2, u >> 3);
+    printf("%ld %ld %ld\n", l, l / 3, -l >> 2);
+    printf("%d %d %d\n", c, uc, s);
+    printf("%d %d %d %d\n", a & b, a | b, a ^ b, ~a);
+    printf("%d %d %d\n", a << 2, a >> 1, !a);
+    printf("%d %d %d\n", a < b, u > 1, (unsigned)a > 1);
+    printf("%d %d\n", a && 0, a || 0);
+    printf("%lu %lu %lu\n", sizeof(int), sizeof(long), sizeof(char *));
+    int x = 10;
+    x += 5; x -= 2; x *= 3; x /= 2; x %= 7; x <<= 3; x >>= 1; x &= 13; x |= 16; x ^= 5;
+    printf("%d\n", x);
+    int i = 3;
+    int i1 = i++;
+    int i2 = ++i;
+    int i3 = i--;
+    int i4 = --i;
+    printf("%d %d %d %d\n", i1, i2, i3, i4);
+    c = 127; c++;
+    printf("%d\n", c);
+    unsigned char w = 255; w += 2;
+    printf("%d\n", w);
+    printf("%d\n", (1, 2, 3));
+    _Bool flag = 42;
+    printf("%d\n", flag);
+    long big = 2147483647;
+    printf("%ld %d\n", big + 1, (int)(big + 1));
+    unsigned long ul = 18446744073709551615UL;
+    printf("%lu %lu %d\n", ul, ul / 3, ul > 5);
+    printf("%x %o %X %5d|%-5d|%05d\n", 255, 8, 255, 42, 42, 42);
+    return a < 0 ? 3 : 4;
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>minicc · AST</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>minicc</h1>
+  <label class="field">
+    <span>Приклад</span>
+    <select id="examples"></select>
+  </label>
+  <span id="status" class="status" role="status"></span>
+  <button id="run" class="primary" title="Ctrl+Enter">Запустити</button>
+</header>
+
+<main class="layout">
+  <section class="pane source" aria-label="Вихідний код">
+    <div class="editor">
+      <div id="gutter" class="gutter" aria-hidden="true"></div>
+      <div class="code">
+        <pre id="highlight" class="highlight" aria-hidden="true"></pre>
+        <textarea id="source" spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off" aria-label="Код мовою C"></textarea>
+      </div>
+    </div>
+    <ul id="diagnostics" class="diagnostics" aria-label="Діагностика"></ul>
+  </section>
+
+  <section class="pane results">
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="ast" aria-selected="true">AST</button>
+      <button role="tab" data-tab="output" aria-selected="false">Виконання</button>
+      <button role="tab" data-tab="asm" aria-selected="false">Асемблер x86-64</button>
+      <button role="tab" data-tab="tokens" aria-selected="false">Токени</button>
+    </nav>
+
+    <div id="tab-ast" class="tab active">
+      <div class="toolbar">
+        <button id="fit">Вмістити</button>
+        <button id="expand">Розгорнути все</button>
+        <button id="collapse-expr">Згорнути вирази</button>
+        <label class="check"><input type="checkbox" id="implicit"> Неявні приведення</label>
+        <label class="check"><input type="checkbox" id="horizontal"> Горизонтально</label>
+        <button id="export-svg">Зберегти SVG</button>
+      </div>
+      <div id="tree" class="tree">
+        <div id="stale" class="stale" hidden>Показано останнє коректне дерево: у коді є синтаксична помилка</div>
+        <svg id="tree-svg" role="img" aria-label="Абстрактне синтаксичне дерево"></svg>
+        <div id="tooltip" class="tooltip" hidden></div>
+        <ul class="legend" aria-label="Легенда">
+          <li><i class="swatch cat-root"></i>Програма</li>
+          <li><i class="swatch cat-decl"></i>Оголошення</li>
+          <li><i class="swatch cat-type"></i>Типи</li>
+          <li><i class="swatch cat-stmt"></i>Інструкції</li>
+          <li><i class="swatch cat-expr"></i>Вирази</li>
+          <li><i class="swatch cat-leaf"></i>Операнди</li>
+          <li><i class="swatch cat-implicit"></i>Приведення</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="tab-output" class="tab">
+      <div class="io">
+        <label for="stdin">Стандартний ввід</label>
+        <textarea id="stdin" rows="3" spellcheck="false"></textarea>
+        <div class="io-head"><span>Результат інтерпретатора</span><span id="run-meta" class="meta"></span></div>
+        <pre id="stdout" class="console">Натисніть «Запустити», щоб виконати програму.</pre>
+      </div>
+    </div>
+
+    <div id="tab-asm" class="tab">
+      <div class="toolbar">
+        <button id="copy-asm">Копіювати</button>
+        <button id="download-asm">Зберегти .s</button>
+        <span id="asm-meta" class="meta"></span>
+      </div>
+      <pre id="asm" class="console asm"></pre>
+    </div>
+
+    <div id="tab-tokens" class="tab">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Позиція</th><th>Вид</th><th>Текст</th></tr></thead>
+          <tbody id="tokens"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="d3.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
